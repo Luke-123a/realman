@@ -397,10 +397,12 @@
     /* ========================================
        ROOMS SECTION
        ======================================== */
+       
     .rooms-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 90%;
     }
 
     .room-card {
@@ -408,29 +410,19 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid rgba(203, 213, 225, 0.1);
+      width: 100%;
+      max-width: 100%;
     }
 
     .room-card img {
       width: 100%;
-      height: 300px;
+      height: auto;
+      aspect-ratio: 4/3;
       object-fit: cover;
       display: block;
     }
 
-    .room-card-content {
-      padding: 2rem;
-    }
-
-    .room-card h3 {
-      font-size: 1.75rem;
-      color: #10b981;
-      margin-bottom: 1rem;
-    }
-
-    .room-card p {
-      color: #cbd5e1;
-      line-height: 1.7;
-    }
+    
 
     /* ========================================
        LOCATION SECTION
@@ -647,6 +639,24 @@
       <h2 style="font-size: 1.5rem; font-weight: 700; color: #f1f5f9; margin-bottom: 3rem; text-align: center;">Our Trainers</h2>
       <div class="trainers-grid" id="homeTrainersGrid">
         <!-- All trainers will be rendered here -->
+      </div>
+    </div>
+
+    <!-- Full Rooms section with 3 images from Rooms section -->
+    <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+     <h2 style="font-size: 1.5rem; font-weight: 700; color: #f1f5f9; margin-bottom: 3rem; text-align: center;">Our Facilities</h2> 
+      <div class="room-section-title">
+              </div>
+      <div class="rooms-grid">
+        <div class="room-card">
+          <img src="site/room1.jpg" alt="Private Treatment Rooms">
+        </div>
+        <div class="room-card">
+          <img src="site/room2.jpg" alt="Couples Suites">
+        </div>
+        <div class="room-card">
+          <img src="site/room3.jpg" alt="Aromatherapy Chamber">
+        </div>
       </div>
     </div>
 
