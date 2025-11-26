@@ -793,10 +793,10 @@
        - Each trainer needs: id, name, age, height, weight, gender, bodyFat, image, gallery (array of images), description
        - Remember to update LINE and Telegram URLs for booking buttons
        ======================================== */
-    var trainersData = [
+   var trainersData = [
       {
         id: 1,
-        name: 'JUNHO',
+        name: '준호/JUNHO',
         age: '28',
         height: '175 cm',
         weight: '70 kg',
@@ -814,7 +814,7 @@
       },
       {
         id: 2,
-        name: 'JIHOON',
+        name: '지훈/JIHOON',
         age: '27',
         height: '180 cm',
         weight: '75 kg',
@@ -833,7 +833,7 @@
       },
       {
         id: 3,
-        name: 'DAEGIL',
+        name: '대길/DAEGIL',
         age: '25',
         height: '178 cm',
         weight: '88 kg',
@@ -848,7 +848,7 @@
       },
       {
         id: 4,
-        name: 'MINJUN',
+        name: '민준/MINJUN',
         age: '29',
         height: '180 cm',
         weight: '73 kg',
@@ -942,46 +942,44 @@
        TRAINERS FUNCTIONALITY
        ======================================== */
     function renderTrainers() {
-  var container = document.getElementById('trainersGrid');
-  container.innerHTML = '';
-  
-  for (var i = 0; i < trainersData.length; i++) {
-    var trainer = trainersData[i];
-    var card = document.createElement('div');
-    card.className = 'trainer-card';
-    card.innerHTML = 
-      '<img src="' + trainer.image + '" alt="' + trainer.name + '" class="trainer-image">' +
-      '<div class="trainer-info">' +
-      '<h3 class="trainer-name">' + trainer.name + '</h3>' +
-      '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
-      '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
-      '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
-      // Gender와 Body Fat 제거
-      '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
-      '</div>';
-    
-    container.appendChild(card);
-  }
-  
-  var profileButtons = document.querySelectorAll('.view-profile-btn');
-  for (var j = 0; j < profileButtons.length; j++) {
-    profileButtons[j].addEventListener('click', function() {
-      var trainerName = this.getAttribute('data-trainer-name');
-      window.location.hash = 'trainer-' + trainerName.replace(/\s+/g, '-').toLowerCase();
-    });
-  }
-}
+      var container = document.getElementById('trainersGrid');
+      container.innerHTML = '';
+      
+      for (var i = 0; i < trainersData.length; i++) {
+        var trainer = trainersData[i];
+        var card = document.createElement('div');
+        card.className = 'trainer-card';
+        card.innerHTML = '<img src="' + trainer.image + '" alt="' + trainer.name + '" class="trainer-image">' +
+                        '<div class="trainer-info">' +
+                        '<h3 class="trainer-name">' + trainer.name + '</h3>' +
+                        '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
+                        '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
+                        '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
+                        '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
+                        '</div>';
+        container.appendChild(card);
+      }
+      
+      var profileButtons = document.querySelectorAll('.view-profile-btn');
+      for (var j = 0; j < profileButtons.length; j++) {
+        profileButtons[j].addEventListener('click', function() {
+          var trainerName = this.getAttribute('data-trainer-name');
+          window.location.hash = 'trainer-' + trainerName.replace(/\s+/g, '-').toLowerCase();
+        });
+      }
+    }
 
     function navigateToTrainer(trainerName) {
-      var urlName = trainerName.replace(/-/g, ' ').toLowerCase();
-      window.location.hash = 'trainer-' + urlName;
+      var urlName = trainerName.toLowerCase().replace(/\s+/g, '-');
+      var encodedName = encodeURIComponent(urlName);
+      window.location.hash = 'trainer-' + encodedName;
     }
 
     /* ========================================
        RENDER TRAINER DETAIL
        ======================================== */
     function renderTrainerDetail(trainerName) {
-      console.log('[v0] Rendering trainer detail for:', trainerName);
+      console.log('[v0] Rendering trainer detail for URL param:', trainerName);
       
       if (!trainerName) {
         console.log('[v0] Error: No trainer name provided');
@@ -993,12 +991,14 @@
         return;
       }
       
-      var trainer = null;
-      var searchName = trainerName.replace(/-/g, ' ').toLowerCase();
-      console.log('[v0] Searching for trainer with name:', searchName);
+      var searchName = decodeURIComponent(trainerName);
+      searchName = searchName.replace(/-/g, ' ');
+      console.log('[v0] Decoded name to search:', searchName);
+      console.log('[v0] Available trainers:', trainersData.map(function(t) { return t.name; }).join(', '));
       
+      var trainer = null;
       for (var i = 0; i < trainersData.length; i++) {
-        if (trainersData[i].name.toLowerCase() === searchName) {
+        if (trainersData[i].name.toLowerCase() === searchName.toLowerCase()) {
           trainer = trainersData[i];
           console.log('[v0] Trainer found:', trainer.name);
           break;
@@ -1007,12 +1007,11 @@
       
       if (!trainer) {
         console.log('[v0] Error: Trainer not found with name:', searchName);
-        console.log('[v0] Available trainers:', trainersData.map(function(t) { return t.name; }).join(', '));
         document.getElementById('trainerDetailContent').innerHTML = 
           '<div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">' +
           '<p style="color: #ef4444; font-size: 1.2rem;">Trainer not found.</p>' +
-          '<p style="color: #cbd5e1; margin-top: 1rem;">The trainer "' + trainerName + '" could not be found.</p>' +
-          '<p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.9rem;">Note: Trainer names must match exactly (case-insensitive). Check your trainer data.</p>' +
+          '<p style="color: #cbd5e1; margin-top: 1rem;">The trainer "' + searchName + '" could not be found.</p>' +
+          '<p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.9rem;">Note: Trainer names must match exactly. Check your trainer data.</p>' +
           '</div>';
         return;
       }
@@ -1059,7 +1058,7 @@
         '<h3 style="color: #10b981; font-size: 1.5rem; margin-bottom: 1rem;">Book Appointment</h3>' +
         '<div class="booking-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap;">' +
         '<a href="https://t.me/realkoreans" target="_blank" class="btn btn-primary btn-telegram" style="min-width: 250px; text-align: center; text-decoration: none;">Book via Telegram</a>' +
-        '<a href="https://line.me/ti/p/U2AK4_ePYe" target="_blank" class="btn btn-primary btn-line" style="min-width: 250px; text-align: center; text-decoration: none;">Book via LINE</a>' +
+        '<a href="https://line.me/R/ti/p/ossssss123" target="_blank" class="btn btn-primary btn-line" style="min-width: 250px; text-align: center; text-decoration: none;">Book via LINE</a>' +
         '</div>' +
         '</div>' +
         '</div>';
@@ -1096,11 +1095,8 @@
     });
   </script>
 
-</body>
-</html>
-
   <!-- Adding copyright footer at bottom of page -->
-  <footer style="background-color: #0f1419; padding: 20px; text-align: center; border-top: 1px solid #2d3748;">
+  <footer style="background-color: #1a1f2e; padding: 20px; text-align: center; border-top: 1px solid #2d3748;">
     <p style="color: #94a3b8; margin: 0; font-size: 14px;">© 2025 REAL MAN. All rights reserved.</p>
   </footer>
 
