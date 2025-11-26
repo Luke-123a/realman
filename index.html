@@ -634,13 +634,13 @@
             </p>
           </div> 
         </div>
-
-        <!-- Updated services image path -->
+</div>
+        <!-- Updated services image path 
         <div class="services-image-sticky">
           <img src="site/KakaoTalk_20251126_190246556.png" alt="Massage Services">
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Full Trainers Section on Home - renders all trainers -->
     <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
@@ -722,9 +722,14 @@
   <!-- End of home section with full content from all sections -->
 
   <!-- Trainer Detail Section -->
-  <section id="trainer-detail">
-    <div class="container" id="trainerDetailContent">
-      <!-- Trainer detail content will be rendered here -->
+<section id="trainer-detail">
+    <div class="container">
+      <div class="trainer-detail-header">
+        <button onclick="history.back()" class="btn btn-secondary" style="margin-bottom: 2rem;">← Back to Trainers</button>
+      </div>
+      <div id="trainerDetailContent">
+        <!-- Trainer detail content will be dynamically rendered here -->
+      </div>
     </div>
   </section>
 
@@ -765,11 +770,61 @@
           </div> 
         </div>
 
-        <div class="services-image-sticky">
+       <!-- CSS -->
+ <style>
+    .services-content {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 60px;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+
+    .service-item {
+      flex: 1 1 300px;
+      padding: 0 20px;
+    }
+
+    /* 세로 점선 - 점 간격 길게 */
+    .service-item:first-child {
+      border-right: 2px dashed #ccc; /* 점 굵기 */
+      /* 점 간격 길게 조절 */
+      border-image: repeating-linear-gradient(
+        to bottom,
+        #ccc 0 4px,        /* 점 길이 */
+        transparent 4px 12px /* 점과 점 사이 간격 */
+      ) 1;
+    }
+
+    @media (max-width: 768px) {
+      .services-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      /* 모바일용 가로 점선 */
+      .service-item:first-child {
+        border-right: none;
+        border-bottom: 2px dashed #ccc;
+        /* 점 간격 길게 조절 */
+        border-image: repeating-linear-gradient(
+          to right,
+          #ccc 0 4px,        /* 점 길이 */
+          transparent 4px 12px /* 점과 점 사이 간격 */
+        ) 1;
+        padding-bottom: 20px;
+      }
+    }
+  </style>
+</section>
+
+       <!-- <div class="services-image-sticky">
           <img src="site/KakaoTalk_20251126_190246556.png" alt="Massage Services">
         </div>
       </div>
-    </div>
+    </div>  -->
+
   </section>
 
   <!-- Trainers Section -->
@@ -872,9 +927,13 @@
         weight: '70 kg',
         image: 'site/KakaoTalk_20251119_160921912_02.jpg',
         gallery: [
+          'site/KakaoTalk_20251119_160921912_01.jpg',
           'site/KakaoTalk_20251119_160921912_02.jpg',
           'site/KakaoTalk_20251119_160921912_03.jpg',
-          'site/KakaoTalk_20251119_160921912_04.jpg'
+          'site/KakaoTalk_20251119_160921912_04.jpg',
+          'site/KakaoTalk_20251119_160921912_05.jpg',
+          'site/KakaoTalk_20251119_160921912_06.jpg',
+          'site/KakaoTalk_20251119_160921912_07.jpg',
         ],
         description: 'Professional massage therapist specializing in deep tissue and sports massage with years of experience.'
       },
@@ -888,7 +947,12 @@
         gallery: [
           'site/KakaoTalk_20251119_161015291_01.jpg',
           'site/KakaoTalk_20251119_161015291_02.jpg',
-          'site/KakaoTalk_20251119_161015291_03.jpg'
+          'site/KakaoTalk_20251119_161015291_03.jpg',
+          'site/KakaoTalk_20251119_161015291_04.jpg',
+          'site/KakaoTalk_20251119_161015291_05.jpg',
+          'site/KakaoTalk_20251119_161015291_06.jpg',
+          'site/KakaoTalk_20251119_161015291_07.jpg',
+          'site/KakaoTalk_20251119_161015291_08.jpg',
         ],
         description: 'test'
       },
@@ -902,7 +966,8 @@
         gallery: [
           'site/KakaoTalk_20251119_161055604_01.jpg',
           'site/KakaoTalk_20251119_161055604_02.jpg',
-          'site/KakaoTalk_20251119_161055604_03.jpg'
+          'site/KakaoTalk_20251119_161055604_03.jpg',
+          'site/KakaoTalk_20251119_161055604_04.jpg',
         ],
         description: 'test'
       },
@@ -916,7 +981,7 @@
         gallery: [
           'site/KakaoTalk_20251119_161143372_01.jpg',
           'site/KakaoTalk_20251119_161143372_02.jpg',
-          'site/KakaoTalk_20251119_161143372_03.jpg'
+          'site/KakaoTalk_20251119_161143372_03.jpg',
         ],
         description: 'test'
       }
@@ -1099,10 +1164,6 @@
       }
       
       document.getElementById('trainerDetailContent').innerHTML = 
-        '<div style="max-width: 1200px; margin: 0 auto;">' +
-        '<a href="#trainers" class="back-button">← Back to Trainers</a>' +
-        '<h2 style="color: #f1f5f9; font-size: 2rem; margin-bottom: 2rem;">' + trainer.name + '</h2>' +
-        '<hr style="border: none; border-top: 1px solid #334155; margin: 2rem 0;">' +
         
         '<div class="trainer-description" style="margin-bottom: 2rem;">' +
         '<h3 style="color: #10b981; font-size: 1.5rem; margin-bottom: 1rem;">About</h3>' +
