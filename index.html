@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REAL MAN - Premium Massage Services</title>
+  <style>
+    /* ========================================
+       GLOBAL STYLES
+       ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: #0f1419;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    section {
+      display: none;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* ========================================
+       NAVIGATION
+       ======================================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(15, 20, 25, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #10b981;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #10b981;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: #f1f5f9;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #mobileNav {
+      display: none;
+    }
+
+    /* ========================================
+       SLIDESHOW
+       ======================================== */
+    .hero-slideshow {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+      width: 100%;
+      padding: 0 2rem;
+    }
+
+    .hero-content h1 {
+      font-size: 5rem;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 4px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ========================================
+       BUTTONS
+       ======================================== */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background-color: #10b981;
+      color: #ffffff;
+      box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-line {
+      background-color: #06c755;
+      color: #ffffff;
+    }
+
+    .btn-line:hover {
+      background-color: #05b04a;
+      transform: translateY(-2px);
+    }
+
+    .btn-telegram {
+      background-color: #0088cc;
+      color: #ffffff;
+    }
+
+    .btn-telegram:hover {
+      background-color: #0077b3;
+      transform: translateY(-2px);
+    }
+
+    /* ========================================
+       CONTAINER
+       ======================================== */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    /* ========================================
+       SERVICES SECTION
+       ======================================== */
+    .services-layout {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+
+    .services-content {
+      flex: 1;
+    }
+
+    .service-item {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .service-item:last-child {
+      border-bottom: none;
+    }
+
+    .service-item h2 {
+      font-size: 2rem;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .service-item p {
+      font-size: 1.125rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+
+    .services-image-sticky {
+      flex: 0 0 580px;
+      position: sticky;
+      top: 220px;
+    }
+
+    .services-image-sticky img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ========================================
+       TRAINERS SECTION
+       ======================================== */
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .trainer-card {
+      background: #1a1f2e;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .trainer-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+    }
+
+    .trainer-image {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+
+    .trainer-info {
+      padding: 1.5rem;
+    }
+
+    .trainer-name {
+      font-size: 1.5rem;
+      color: #10b981;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .info-value {
+      color: #f1f5f9;
+    }
+
+    /* ========================================
+       TRAINER DETAIL
+       ======================================== */
+    .trainer-detail-header {
+      margin-bottom: 2rem;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #10b981;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      transition: color 0.3s;
+    }
+
+    .back-button:hover {
+      color: #059669;
+    }
+
+    .trainer-header h1 {
+      font-size: 3rem;
+      color: #10b981;
+      margin-bottom: 1.5rem;
+    }
+
+    .trainer-description {
+      background: #1a1f2e;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+      border: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .trainer-description h2 {
+      font-size: 1.75rem;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .trainer-description p {
+      font-size: 1.125rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+
+    .trainer-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .booking-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ========================================
+       ROOMS SECTION
+       ======================================== */
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .room-card {
+      background: #1a1f2e;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .room-card-content {
+      padding: 2rem;
+    }
+
+    .room-card h3 {
+      font-size: 1.75rem;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .room-card p {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    /* ========================================
+       LOCATION SECTION
+       ======================================== */
+    .location-content {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .location-map {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .location-map iframe {
+      width: 100%;
+      height: 450px;
+      border-radius: 12px;
+      border: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .location-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .info-card {
+      background: #1a1f2e;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(203, 213, 225, 0.1);
+    }
+
+    .info-card h3 {
+      font-size: 1.5rem;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .info-card p {
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ========================================
+       RESPONSIVE DESIGN
+       ======================================== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      #mobileNav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(15, 20, 25, 0.98);
+        flex-direction: column;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(59, 130, 246, 0.1);
+      }
+
+      #mobileNav.active {
+        display: flex;
+      }
+
+      #mobileNav .nav-link {
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgba(203, 213, 225, 0.1);
+      }
+
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+
+      .services-layout {
+        flex-direction: column;
+      }
+
+      .services-image-sticky {
+        position: static;
+        flex: 1;
+        width: 100%;
+      }
+
+      .trainer-header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#home" class="logo">REAL MAN</a>
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link">HOME</a></li>
+        <li><a href="#services" class="nav-link">SERVICES</a></li>
+        <li><a href="#trainers" class="nav-link">TRAINERS</a></li>
+        <li><a href="#rooms" class="nav-link">ROOMS</a></li>
+        <li><a href="#location" class="nav-link">LOCATION</a></li>
+      </ul>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </div>
+    <div class="nav-links" id="mobileNav">
+      <li><a href="#home" class="nav-link">HOME</a></li>
+      <li><a href="#services" class="nav-link">SERVICES</a></li>
+      <li><a href="#trainers" class="nav-link">TRAINERS</a></li>
+      <li><a href="#rooms" class="nav-link">ROOMS</a></li>
+      <li><a href="#location" class="nav-link">LOCATION</a></li>
+    </div>
+  </nav>
+
+  <!-- ========================================
+       HOME SECTION
+       ========================================
+       IMAGE AREA START
+       To change slideshow images, replace the URLs below
+       Add or remove <div class="slide"> sections as needed
+       ======================================== -->
+  <section id="home" class="active">
+    <div class="hero-slideshow">
+      <div class="slide active">
+        <img src="site/KakaoTalk_20251119_161143372_01.jpg" alt="민준">
+      </div>
+      <div class="slide">
+        <img src="site/KakaoTalk_20251119_160921912_02.jpg" alt="준호">
+      </div>
+      <div class="slide">
+        <img src="site/KakaoTalk_20251119_161055604_01.jpg" alt="대길">
+      </div>
+      <div class="slide">
+        <img src="site/KakaoTalk_20251119_161015291_01.jpg" alt="지훈">
+      </div>
+      <!-- IMAGE AREA END -->
+      
+      <div class="hero-content">
+        <h1>REAL MAN</h1>
+        <div class="hero-buttons">
+          <a href="#services" class="btn btn-primary">View Services</a>
+          <a href="#trainers" class="btn btn-primary">Meet Our Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SERVICES SECTION
+       ========================================
+       TEXT/DESCRIPTION AREA START
+       Edit the service names, descriptions below
+       ======================================== -->
+
+         <!--
+<div class="service-item">
+    <h2>Thai Massage</h2>
+    <p>
+        Immerse yourself in the ancient healing art of Thai massage. 
+        This dynamic treatment combines acupressure, assisted yoga postures, 
+        and rhythmic compression to increase flexibility, release energy blockages, 
+        and restore balance to your body and mind.
+    </p>
+</div>
+--> 
+
+  <section id="services">
+    <div class="container">
+      <div class="services-layout">
+        <div class="services-content">
+          <div class="service-item">
+            <h2>Prices & Courses</h2>
+            <p>
+    * 60 minutes: ₩110,000<br>
+    * 90 minutes: ₩150,000<br>
+    * 120 minutes: ₩220,000<br>
+    * Extended-night courses available based on time<br><br>
+     <p>    Outcall Fee: Round Trip Taxi Fare<br>
+            Massage + Service<br>
+            Choice of Dry or Aroma Massage (Optional)
+
+    Cash, card (plus 10% VAT), or bank transfer accepted<br><br>
+
+    Location: Near HAKDONG Station<br>
+    Outcall: Please provide your location and we’ll arrange round-trip taxi fare
+</p>
+          </div>       
+          <div class="service-item">
+    <h2>가격&코스</h2>
+    <p>
+        60분: ₩110,000<br>
+        90분: ₩150,000<br>
+        120분: ₩220,000<br>
+        *시간에 따라 야간 연장 코스 가능<br><br>
+
+        현금, 카드(부가세 10% 포함), 또는 계좌이체 가능<br>
+        위치: 학동역 근처<br>
+        출장: 고객님의 위치를 알려주시면 왕복 택시를 포함하여 출장 진행<br>
+    </p>
+</div> 
+        </div>
+
+        <!-- TEXT/DESCRIPTION AREA END -->
+
+        <!-- IMAGE AREA START
+             To change the main services image, replace the URL below
+             ======================================== -->
+        <div class="services-image-sticky">
+          <img src="site/KakaoTalk_20251126_190246556.png" alt="Massage Services">
+        </div>
+        <!-- IMAGE AREA END -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       TRAINERS SECTION
+       ======================================== -->
+  <section id="trainers">
+    <div class="container">
+      <div class="trainers-grid" id="trainersGrid">
+        <!-- Trainers will be dynamically rendered here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       TRAINER DETAIL SECTION
+       ======================================== -->
+  <section id="trainer-detail">
+    <div class="container">
+      <div class="trainer-detail-header">
+        <button onclick="history.back()" class="btn btn-secondary" style="margin-bottom: 2rem;">← Back to Trainers</button>
+      </div>
+      <div id="trainerDetailContent">
+        <!-- Trainer detail content will be dynamically rendered here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       ROOMS SECTION
+       ========================================
+       To manage rooms and facilities:
+       Edit the IMAGE AREA sections below to add or remove photos
+       ======================================== -->
+  <section id="rooms">
+  <div class="container">
+    <!-- TITLE OR DESCRIPTION ABOVE IMAGES -->
+    <div class="room-section-title">
+      Our private Rooms<br><br>
+    </div>
+
+    <div class="rooms-grid">
+      <!-- IMAGE AREA START -->
+        <div class="room-card">
+          <img src="site/room1.jpg" alt="Private Treatment Rooms">
+        </div>
+        <!-- IMAGE AREA END -->
+
+        <!-- IMAGE AREA START -->
+        <div class="room-card">
+          <img src="site/room2.jpg" alt="Couples Suites">
+        </div>
+        <!-- IMAGE AREA END -->
+
+        <!-- IMAGE AREA START -->
+        <div class="room-card">
+          <img src="site/room3.jpg" alt="Aromatherapy Chamber">
+        </div>
+        <!-- IMAGE AREA END -->
+      </div>
+    </div>
+  </section>
+
+<!-- OUR ROOMS 맨위 글씨-->
+  <head>
+  <style>
+    .room-section-title {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #10b981;
+    }
+  </style>
+</head>
+
+  <!-- ========================================
+       LOCATION SECTION
+       ========================================
+       TEXT/DESCRIPTION AREA START
+       Edit the address, hours, and contact info below
+       ======================================== -->
+  <section id="location">
+    <div class="container">
+      <!-- Rearranged layout: info cards on left, map on right -->
+      <div class="location-content" style="display: flex; gap: 2rem; align-items: stretch;">
+        <div class="location-info" style="flex: 1; display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="info-card">
+            <h3>Location</h3>
+            <p>44‑8, Gangnam-daero 128-gil</p>
+            <p>Gangnam-gu, Seoul</p>
+            <p>Hakdong Station, Exit 5 – 3 minutes on foot</p>
+            <p>서울시 강남구 강남대로 128길 44-8</p>
+            <p>학동역 5번 출구 – 도보 3분</p>
+          </div>
+
+          <div class="info-card">
+            <h3>Hours</h3>
+            <p>Business Hours: 2:00 PM – 4:00 AM</p>
+            </div>
+
+          <div class="info-card">
+            <h3>Contact</h3>
+            <p style="margin-top: 0.75rem;">
+              <a href="https://t.me/realkoreans" target="_blank" rel="noopener noreferrer" style="color: #10b981; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 0.375rem; transition: all 0.3s; margin-right: 0.5rem;">
+                <svg style="width: 20px; height: 20px;" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.717-3.146 10.843-3.146 10.843-.237.95-.87.95-1.417.588-.411-.273-2.24-1.453-2.976-1.898-.736-.445-1.382-.89-1.146-1.362.148-.295 2.24-2.598 3.652-3.988.631-.622.316-.989-.379-.367-1.743 1.556-4.596 3.592-5.156 3.965-.56.373-.875.373-1.266.248-.39-.124-1.687-.627-1.687-.627s-.622-.39.437-1.252c0 0 4.277-3.965 5.875-5.471C11.998 7.302 13.746 4.5 13.746 4.5s.316-.44.632-.294c.316.147.21.588.21.588s-.105.368-.315.735z"/>
+                </svg>
+                Telegram: @realkoreans
+              </a>
+            </p>
+            <p style="margin-top: 0.5rem;">
+              <a href="https://line.me/ti/p/U2AK4_ePYe" target="_blank" rel="noopener noreferrer" style="color: #06b6d4; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(6, 182, 212, 0.1); border-radius: 0.375rem; transition: all 0.3s;">
+                <svg style="width: 20px; height: 20px;" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+                LINE: @newmsg
+              </a>
+            </p>
+          </div>
+</div>
+        <div class="location-map" style="flex: 1;">
+          <iframe 
+            src="https://www.google.com/maps?q=강남대로128길+44-8&output=embed" 
+            style="width: 100%; height: 100%; min-height: 500px;"
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- TEXT/DESCRIPTION AREA END -->
+
+  <script>
+    /* ========================================
+       TRAINERS DATA
+       ========================================
+       To manage trainers:
+       - Edit the trainersData array below
+       - Each trainer needs: id, name, age, height, weight, gender, bodyFat, image, gallery (array of images), description
+       - Remember to update LINE and Telegram URLs for booking buttons
+       ======================================== */
+    var trainersData = [
+      {
+        id: 1,
+        name: 'JUNHO',
+        age: '28',
+        height: '175 cm',
+        weight: '70 kg',
+        image: 'site/KakaoTalk_20251119_160921912_02.jpg',
+        gallery: [
+          'site/KakaoTalk_20251119_160921912_01.jpg',
+          'site/KakaoTalk_20251119_160921912_02.jpg',
+          'site/KakaoTalk_20251119_160921912_03.jpg',
+          'site/KakaoTalk_20251119_160921912_04.jpg',
+          'site/KakaoTalk_20251119_160921912_05.jpg',
+          'site/KakaoTalk_20251119_160921912_06.jpg',
+          'site/KakaoTalk_20251119_160921912_07.jpg'
+        ],
+        description: 'Junho is a handsome trainer with a defined core, strong thighs, and a lean, healthy body. He delivers the ultimate satisfaction and a revitalizing experience with a well-structured training program, taking full responsibility for your fitness with his strong stamina and meticulous care. A health-conscious man who maintains peak condition through disciplined self-management!<br><br>단단한 코어와 탄탄한 허벅지, 체지방 없는 건강한 몸을 가진 무쌍 훈남 트레이너 준호입니다.<br> 완성도 높은 코스로 최고의 만족과 힐링을 선사하며, 강한 체력과 꼼꼼한 관리로 당신을 책임집니다.<br> 철저한 자기관리로 항상 최상의 컨디션을 유지하는 건강남입니다!'
+      },
+      {
+        id: 2,
+        name: 'JIHOON',
+        age: '27',
+        height: '180 cm',
+        weight: '75 kg',
+        image: 'site/KakaoTalk_20251119_161015291_01.jpg',
+        gallery: [
+          'site/KakaoTalk_20251119_161015291_01.jpg',
+          'site/KakaoTalk_20251119_161015291_02.jpg',
+          'site/KakaoTalk_20251119_161015291_03.jpg',
+          'site/KakaoTalk_20251119_161015291_04.jpg',
+          'site/KakaoTalk_20251119_161015291_05.jpg',
+          'site/KakaoTalk_20251119_161015291_06.jpg',
+          'site/KakaoTalk_20251119_161015291_07.jpg',
+          'site/KakaoTalk_20251119_161015291_08.jpg',
+        ],
+        description: 'Jordan is a certified Thai massage practitioner with expertise in traditional healing techniques. With a gentle yet effective touch, Jordan helps clients achieve balance and flexibility through ancient massage practices.'
+      },
+      {
+        id: 3,
+        name: 'DAEGIL',
+        age: '25',
+        height: '178 cm',
+        weight: '88 kg',
+        image: 'site/KakaoTalk_20251119_161055604_01.jpg',
+        gallery: [
+          'site/KakaoTalk_20251119_161055604_01.jpg',
+          'site/KakaoTalk_20251119_161055604_02.jpg',
+          'site/KakaoTalk_20251119_161055604_03.jpg',
+          'site/KakaoTalk_20251119_161055604_04.jpg',
+        ],
+        description: 'Ryan specializes in Swedish and aromatherapy massage, creating deeply relaxing experiences. His intuitive understanding of tension points and calming presence make every session a journey to tranquility.'
+      },
+      {
+        id: 4,
+        name: 'MINJUN',
+        age: '29',
+        height: '180 cm',
+        weight: '73 kg',
+        image: 'site/KakaoTalk_20251119_161143372_01.jpg',
+        gallery: [
+          'site/KakaoTalk_20251119_161143372_01.jpg',
+          'site/KakaoTalk_20251119_161143372_02.jpg',
+          'site/KakaoTalk_20251119_161143372_03.jpg',
+        ],
+        description: 'Marcus brings expertise in sports rehabilitation and injury recovery massage. His background in athletic training helps him understand the unique needs of active clients seeking both recovery and performance enhancement.'
+      },
+        ];
+
+    /* ========================================
+       SLIDESHOW FUNCTIONALITY
+       ======================================== */
+    var slides = document.querySelectorAll('.slide');
+    var currentSlide = 0;
+
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    setInterval(nextSlide, 4000);
+
+    /* ========================================
+       NAVIGATION FUNCTIONALITY
+       ======================================== */
+    var navLinks = document.querySelectorAll('.nav-link');
+    var sections = document.querySelectorAll('section');
+    var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    var mobileNav = document.getElementById('mobileNav');
+
+    function showSection(sectionId) {
+      // Hide all sections
+      sections.forEach(function(section) {
+        section.classList.remove('active');
+      });
+      
+      // Show target section
+      var targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+      
+      // Update active nav link
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + sectionId) {
+          link.classList.add('active');
+        }
+      });
+      
+      // Close mobile menu
+      if (mobileNav) {
+        mobileNav.classList.remove('active');
+      }
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    // Handle navigation clicks
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var sectionId = this.getAttribute('href').substring(1);
+        showSection(sectionId);
+        window.location.hash = sectionId;
+      });
+    });
+
+    // Mobile menu toggle
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', function() {
+        if (mobileNav.classList.contains('active')) {
+          mobileNav.classList.remove('active');
+        } else {
+          mobileNav.classList.add('active');
+        }
+      });
+    }
+
+    /* ========================================
+       TRAINERS FUNCTIONALITY
+       ======================================== */
+    function renderTrainers() {
+  var container = document.getElementById('trainersGrid');
+  container.innerHTML = '';
+  
+  for (var i = 0; i < trainersData.length; i++) {
+    var trainer = trainersData[i];
+    var card = document.createElement('div');
+    card.className = 'trainer-card';
+    card.innerHTML = 
+      '<img src="' + trainer.image + '" alt="' + trainer.name + '" class="trainer-image">' +
+      '<div class="trainer-info">' +
+      '<h3 class="trainer-name">' + trainer.name + '</h3>' +
+      '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
+      '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
+      '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
+      // Gender와 Body Fat 제거
+      '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
+      '</div>';
+    
+    container.appendChild(card);
+  }
+  
+  var profileButtons = document.querySelectorAll('.view-profile-btn');
+  for (var j = 0; j < profileButtons.length; j++) {
+    profileButtons[j].addEventListener('click', function() {
+      var trainerName = this.getAttribute('data-trainer-name');
+      window.location.hash = 'trainer-' + trainerName.replace(/\s+/g, '-').toLowerCase();
+    });
+  }
+}
+
+    function navigateToTrainer(trainerName) {
+      var urlName = trainerName.replace(/-/g, ' ').toLowerCase();
+      window.location.hash = 'trainer-' + urlName;
+    }
+
+    /* ========================================
+       RENDER TRAINER DETAIL
+       ======================================== */
+    function renderTrainerDetail(trainerName) {
+      console.log('[v0] Rendering trainer detail for:', trainerName);
+      
+      if (!trainerName) {
+        console.log('[v0] Error: No trainer name provided');
+        document.getElementById('trainerDetailContent').innerHTML = 
+          '<div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">' +
+          '<p style="color: #ef4444; font-size: 1.2rem;">Error: No trainer specified.</p>' +
+          '<p style="color: #cbd5e1; margin-top: 1rem;">Please go back and select a trainer.</p>' +
+          '</div>';
+        return;
+      }
+      
+      var trainer = null;
+      var searchName = trainerName.replace(/-/g, ' ').toLowerCase();
+      console.log('[v0] Searching for trainer with name:', searchName);
+      
+      for (var i = 0; i < trainersData.length; i++) {
+        if (trainersData[i].name.toLowerCase() === searchName) {
+          trainer = trainersData[i];
+          console.log('[v0] Trainer found:', trainer.name);
+          break;
+        }
+      }
+      
+      if (!trainer) {
+        console.log('[v0] Error: Trainer not found with name:', searchName);
+        console.log('[v0] Available trainers:', trainersData.map(function(t) { return t.name; }).join(', '));
+        document.getElementById('trainerDetailContent').innerHTML = 
+          '<div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">' +
+          '<p style="color: #ef4444; font-size: 1.2rem;">Trainer not found.</p>' +
+          '<p style="color: #cbd5e1; margin-top: 1rem;">The trainer "' + trainerName + '" could not be found.</p>' +
+          '<p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.9rem;">Note: Trainer names must match exactly (case-insensitive). Check your trainer data.</p>' +
+          '</div>';
+        return;
+      }
+      
+      var galleryHtml = '';
+      if (trainer.gallery && trainer.gallery.length > 0) {
+        console.log('[v0] Rendering', trainer.gallery.length, 'gallery images');
+        for (var i = 0; i < trainer.gallery.length; i++) {
+          if (trainer.gallery[i]) {
+            galleryHtml += '<img src="' + trainer.gallery[i] + '" alt="' + trainer.name + ' photo ' + (i + 1) + '" class="gallery-image" onerror="console.log(\'[v0] Image failed to load:\', this.src); this.style.display=\'none\';">';
+          }
+        }
+      } else {
+        console.log('[v0] Warning: No gallery images found for', trainer.name);
+        galleryHtml = '<p style="color: #94a3b8;">No gallery images available.</p>';
+      }
+      
+      var profileImageHtml = '';
+      if (trainer.image) {
+        console.log('[v0] Profile image:', trainer.image);
+      } else {
+        console.log('[v0] Warning: No profile image for', trainer.name);
+      }
+      
+      document.getElementById('trainerDetailContent').innerHTML = 
+        '<div style="max-width: 1200px; margin: 0 auto;">' +
+        '<h2 style="color: #f1f5f9; font-size: 2rem; margin-bottom: 2rem;">' + trainer.name + '</h2>' +
+        '<hr style="border: none; border-top: 1px solid #334155; margin: 2rem 0;">' +
+        
+        '<div class="trainer-description" style="margin-bottom: 2rem;">' +
+        '<h3 style="color: #10b981; font-size: 1.5rem; margin-bottom: 1rem;">About</h3>' +
+        '<p style="color: #cbd5e1; line-height: 1.8;">' + (trainer.description || 'Professional massage therapist with years of experience in providing exceptional wellness services.') + '</p>' +
+        '</div>' +
+        
+        '<div style="margin-bottom: 2rem;">' +
+        '<div class="trainer-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">' + 
+        galleryHtml + 
+        '</div>' +
+        '</div>' +
+        
+        '<hr style="border: none; border-top: 1px solid #334155; margin: 2rem 0;">' +
+        
+        '<div>' +
+        '<h3 style="color: #10b981; font-size: 1.5rem; margin-bottom: 1rem;">Book Appointment</h3>' +
+        '<div class="booking-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap;">' +
+        '<a href="https://t.me/realkoreans" target="_blank" class="btn btn-primary btn-telegram" style="min-width: 250px; text-align: center; text-decoration: none;">Book via Telegram</a>' +
+        '<a href="https://line.me/ti/p/U2AK4_ePYe" target="_blank" class="btn btn-primary btn-line" style="min-width: 250px; text-align: center; text-decoration: none;">Book via LINE</a>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+      
+      console.log('[v0] Trainer detail rendered successfully');
+    }
+
+    /* ========================================
+       URL HASH HANDLING
+       ======================================== */
+    function handleHashChange() {
+      var hash = window.location.hash.substring(1);
+      
+      if (hash.startsWith('trainer-')) {
+        var trainerName = hash.replace('trainer-', '');
+        if (trainerName) {
+          showSection('trainer-detail');
+          renderTrainerDetail(trainerName);
+          return;
+        }
+      }
+      
+      if (hash && document.getElementById(hash)) {
+        showSection(hash);
+      } else if (!hash) {
+        showSection('home');
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('load', function() {
+      renderTrainers();
+      handleHashChange();
+    });
+  </script>
+
+</body>
+</html>
+
+  <!-- Adding copyright footer at bottom of page -->
+  <footer style="background-color: #0f1419; padding: 20px; text-align: center; border-top: 1px solid #2d3748;">
+    <p style="color: #94a3b8; margin: 0; font-size: 14px;">© 2025 REAL MAN. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
