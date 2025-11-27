@@ -976,6 +976,7 @@
         gallery: [
           'site/KakaoTalk_20251119_161143372_01.jpg',
           'site/KakaoTalk_20251119_161143372_02.jpg',
+          'site/KakaoTalk_20251119_161143372_03.jpg',
           'site/KakaoTalk_20251127_112323946.mp4'
           ], 
         description: 'test'
@@ -1071,6 +1072,8 @@
                           '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
+                          '<div class="info-item"><span class="info-label">Gender:</span><span class="info-value">' + trainer.gender + '</span></div>' +
+                          '<div class="info-item"><span class="info-label">Body Fat:</span><span class="info-value">' + trainer.bodyFat + '</span></div>' +
                           '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
                           '</div>';
           container.appendChild(card);
@@ -1099,6 +1102,8 @@
                           '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
+                          '<div class="info-item"><span class="info-label">Gender:</span><span class="info-value">' + trainer.gender + '</span></div>' +
+                          '<div class="info-item"><span class="info-label">Body Fat:</span><span class="info-value">' + trainer.bodyFat + '</span></div>' +
                           '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
                           '</div>';
           homeContainer.appendChild(card);
@@ -1233,13 +1238,25 @@
     /* ========================================
        HELPER: CREATE MEDIA ELEMENT (IMAGE OR VIDEO)
        ======================================== */
-    function createMediaElement(src, alt, className) {
+
+       /* 자동재생 */
+
+      /* function createMediaElement(src, alt, className) {
       if (isVideoFile(src)) {
         return '<video src="' + src + '" class="' + className + '" controls muted loop playsinline style="width: 100%; object-fit: cover;"></video>';
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
+    } */
+
+    function createMediaElement(src, alt, className) {
+      if (isVideoFile(src)) {
+        return '<video src="' + src + '" class="' + className + '" controls playsinline preload="metadata" style="width: 100%; object-fit: cover;"></video>';
+      } else {
+        return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
+      }
     }
+
   </script>
 
   <footer style="background-color: #1a1f2e; padding: 20px; text-align: center; border-top: 1px solid #2d3748;">
