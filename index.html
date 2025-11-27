@@ -657,6 +657,7 @@
         <div class="room-card">
           <img src="site/room4.jpg" alt="Aromatherapy Chamber">
         </div>
+        </div>
       </div>
     </div>
 
@@ -849,7 +850,7 @@
   <div class="room-card">
           <img src="site/room4.jpg" alt="Aromatherapy Chamber">
         </div>
-</div>
+        </div>
       </div>
     </div>
   </section>
@@ -857,8 +858,7 @@
   <!-- Location Section -->
   <section id="location">
     <div class="container">
-      <h2 style="font-size: 2.5rem; font-weight: 700; color: #f1f5f9; margin-bottom: 3rem; text-align: center;">Visit Us</h2>
-      <div class="location-content">
+     <div class="location-content">
         <div class="location-info">
           <div class="info-card">
             <h3>Location</h3>
@@ -929,15 +929,15 @@
           'site/KakaoTalk_20251119_160921912_05.jpg',
           'site/KakaoTalk_20251119_160921912_06.jpg',
           'site/KakaoTalk_20251119_160921912_07.jpg',
-        ],
-        description: 'Professional massage therapist specializing in deep tissue and sports massage with years of experience.'
+          ],
+        description: 'test'
       },
       {
         id: 2,
         name: '지훈/JIHOON',
         age: '27',
         height: '180 cm',
-        weight: '75 kg',
+        weight: '75 kg',       
         image: 'site/KakaoTalk_20251119_161015291_01.jpg',
         gallery: [
           'site/KakaoTalk_20251119_161015291_01.jpg',
@@ -947,7 +947,7 @@
           'site/KakaoTalk_20251119_161015291_05.jpg',
           'site/KakaoTalk_20251119_161015291_06.jpg',
           'site/KakaoTalk_20251119_161015291_07.jpg',
-          'site/KakaoTalk_20251119_161015291_08.jpg',
+          'site/KakaoTalk_20251119_161015291_08.jpg'
         ],
         description: 'test'
       },
@@ -962,7 +962,7 @@
           'site/KakaoTalk_20251119_161055604_01.jpg',
           'site/KakaoTalk_20251119_161055604_02.jpg',
           'site/KakaoTalk_20251119_161055604_03.jpg',
-          'site/KakaoTalk_20251119_161055604_04.jpg',
+          'site/KakaoTalk_20251119_161055604_04.jpg'
         ],
         description: 'test'
       },
@@ -972,14 +972,14 @@
         age: '29',
         height: '180 cm',
         weight: '73 kg',
-        image: 'site/KakaoTalk_20251119_161143372_01.jpg',
+        image: 'site/KakaoTalk_20251127_112323946.mp4',
         gallery: [
           'site/KakaoTalk_20251119_161143372_01.jpg',
           'site/KakaoTalk_20251119_161143372_02.jpg',
-          'site/KakaoTalk_20251119_161143372_03.jpg',
-        ],
+          'site/KakaoTalk_20251127_112323946.mp4'
+          ], 
         description: 'test'
-      }
+      },     
     ];
 
     /* ========================================
@@ -1054,7 +1054,7 @@
     }
 
     /* ========================================
-       TRAINERS FUNCTIONALITY
+       TRAINER RENDERING
        ======================================== */
     function renderTrainers() {
       var container = document.getElementById('trainersGrid');
@@ -1065,7 +1065,7 @@
           var trainer = trainersData[i];
           var card = document.createElement('div');
           card.className = 'trainer-card';
-          card.innerHTML = '<img src="' + trainer.image + '" alt="' + trainer.name + '" class="trainer-image">' +
+          card.innerHTML = createMediaElement(trainer.image, trainer.name, 'trainer-image') +
                           '<div class="trainer-info">' +
                           '<h3 class="trainer-name">' + trainer.name + '</h3>' +
                           '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
@@ -1093,7 +1093,7 @@
           var trainer = trainersData[i];
           var card = document.createElement('div');
           card.className = 'trainer-card';
-          card.innerHTML = '<img src="' + trainer.image + '" alt="' + trainer.name + '" class="trainer-image">' +
+          card.innerHTML = createMediaElement(trainer.image, trainer.name, 'trainer-image') +
                           '<div class="trainer-info">' +
                           '<h3 class="trainer-name">' + trainer.name + '</h3>' +
                           '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
@@ -1112,11 +1112,6 @@
           });
         }
       }
-    }
-
-    function navigateToTrainer(trainerName) {
-      var encodedName = encodeURIComponent(trainerName);
-      window.location.hash = 'trainer-' + encodedName;
     }
 
     /* ========================================
@@ -1152,13 +1147,17 @@
       var galleryHtml = '';
       if (trainer.gallery && trainer.gallery.length > 0) {
         for (var i = 0; i < trainer.gallery.length; i++) {
-          if (trainer.gallery[i]) {
-            galleryHtml += '<img src="' + trainer.gallery[i] + '" alt="' + trainer.name + '" class="gallery-image">';
-          }
+          galleryHtml += '<div class="gallery-item">' + 
+                        createMediaElement(trainer.gallery[i], trainer.name + ' photo ' + (i + 1), 'gallery-image') +
+                        '</div>';
         }
       }
       
       document.getElementById('trainerDetailContent').innerHTML = 
+        '<div style="max-width: 1200px; margin: 0 auto;">' +
+        '<a href="#trainers" class="back-button">← Back to Trainers</a>' +
+        '<h2 style="color: #f1f5f9; font-size: 2rem; margin-bottom: 2rem;">' + trainer.name + '</h2>' +
+        '<hr style="border: none; border-top: 1px solid #334155; margin: 2rem 0;">' +
         
         '<div class="trainer-description" style="margin-bottom: 2rem;">' +
         '<h3 style="color: #10b981; font-size: 1.5rem; margin-bottom: 1rem;">About</h3>' +
@@ -1186,6 +1185,10 @@
     /* ========================================
        URL HASH HANDLING
        ======================================== */
+    function navigateToTrainer(trainerName) {
+      window.location.hash = 'trainer-' + encodeURIComponent(trainerName);
+    }
+
     function handleHashChange() {
       var hash = window.location.hash.substring(1);
       
@@ -1210,6 +1213,33 @@
       renderTrainers();
       handleHashChange();
     });
+
+    /* ========================================
+       HELPER FUNCTION - Check if file is video
+       ======================================== */
+    function isVideoFile(url) {
+      var videoExtensions = ['.mp4', '.webm', '.mov', '.avi', '.mkv', '.m4v'];
+      var lowerUrl = url.toLowerCase();
+      // Remove query parameters before checking extension
+      var urlWithoutQuery = lowerUrl.split('?')[0];
+      for (var i = 0; i < videoExtensions.length; i++) {
+        if (urlWithoutQuery.endsWith(videoExtensions[i])) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /* ========================================
+       HELPER: CREATE MEDIA ELEMENT (IMAGE OR VIDEO)
+       ======================================== */
+    function createMediaElement(src, alt, className) {
+      if (isVideoFile(src)) {
+        return '<video src="' + src + '" class="' + className + '" controls muted loop playsinline style="width: 100%; object-fit: cover;"></video>';
+      } else {
+        return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
+      }
+    }
   </script>
 
   <footer style="background-color: #1a1f2e; padding: 20px; text-align: center; border-top: 1px solid #2d3748;">
