@@ -1251,12 +1251,15 @@
 
     function createMediaElement(src, alt, className) {
       if (isVideoFile(src)) {
-        return '<video src="' + src + '" class="' + className + '" controls playsinline preload="metadata" style="width: 100%; object-fit: cover;"></video>';
+        var videoSrc = src;
+        if (src.indexOf('#t=') === -1) {
+          videoSrc = src + '#t=0.1';
+        }
+        return '<video src="' + videoSrc + '" class="' + className + '" controls playsinline preload="metadata" style="width: 100%; object-fit: cover;"></video>';
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
     }
-
   </script>
 
   <footer style="background-color: #1a1f2e; padding: 20px; text-align: center; border-top: 1px solid #2d3748;">
