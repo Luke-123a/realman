@@ -1072,8 +1072,6 @@
                           '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
-                          '<div class="info-item"><span class="info-label">Gender:</span><span class="info-value">' + trainer.gender + '</span></div>' +
-                          '<div class="info-item"><span class="info-label">Body Fat:</span><span class="info-value">' + trainer.bodyFat + '</span></div>' +
                           '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
                           '</div>';
           container.appendChild(card);
@@ -1102,8 +1100,6 @@
                           '<div class="info-item"><span class="info-label">Age:</span><span class="info-value">' + trainer.age + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Height:</span><span class="info-value">' + trainer.height + '</span></div>' +
                           '<div class="info-item"><span class="info-label">Weight:</span><span class="info-value">' + trainer.weight + '</span></div>' +
-                          '<div class="info-item"><span class="info-label">Gender:</span><span class="info-value">' + trainer.gender + '</span></div>' +
-                          '<div class="info-item"><span class="info-label">Body Fat:</span><span class="info-value">' + trainer.bodyFat + '</span></div>' +
                           '<button class="btn btn-primary view-profile-btn" data-trainer-name="' + trainer.name + '" style="width: 100%; margin-top: 1rem;">View Profile</button>' +
                           '</div>';
           homeContainer.appendChild(card);
@@ -1243,7 +1239,11 @@
 
       /* function createMediaElement(src, alt, className) {
       if (isVideoFile(src)) {
-        return '<video src="' + src + '" class="' + className + '" controls muted loop playsinline style="width: 100%; object-fit: cover;"></video>';
+        var videoSrc = src;
+        if (src.indexOf('#t=') === -1) {
+          videoSrc = src + '#t=0.1';
+        }
+        return '<video src="' + videoSrc + '" poster="' + src + '" class="' + className + '" controls muted loop playsinline style="width: 100%; object-fit: cover;"></video>';
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
@@ -1255,7 +1255,7 @@
         if (src.indexOf('#t=') === -1) {
           videoSrc = src + '#t=0.1';
         }
-        return '<video src="' + videoSrc + '" class="' + className + '" controls playsinline preload="metadata" style="width: 100%; object-fit: cover;"></video>';
+        return '<video src="' + videoSrc + '" class="' + className + '" controls playsinline preload="metadata" muted style="width: 100%; object-fit: cover;"></video>';
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
