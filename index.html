@@ -972,7 +972,7 @@
         age: '29',
         height: '180 cm',
         weight: '73 kg',
-        image: 'site/KakaoTalk_20251127_112323946.mp4',
+        image: 'site/h264.mp4',
         gallery: [
           'site/KakaoTalk_20251119_161143372_01.jpg',
           'site/KakaoTalk_20251119_161143372_02.jpg',
@@ -1232,9 +1232,10 @@
 
     /* ========================================
        HELPER: CREATE MEDIA ELEMENT (IMAGE OR VIDEO)
+       video 업로드 시 H264로 변환 필수
        ======================================== */
 
-    function createMediaElement(src, alt, className) {
+      function createMediaElement(src, alt, className) {
       if (isVideoFile(src)) {
         var videoSrc = src;
         if (src.indexOf('#t=') === -1) {
