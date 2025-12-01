@@ -1234,27 +1234,16 @@
        HELPER: CREATE MEDIA ELEMENT (IMAGE OR VIDEO)
        ======================================== */
 
-       /* 자동재생 */
-
-      /* function createMediaElement(src, alt, className) {
-      if (isVideoFile(src)) {
-        var videoSrc = src;
-        if (src.indexOf('#t=') === -1) {
-          videoSrc = src + '#t=0.1';
-        }
-        return '<video src="' + videoSrc + '" poster="' + src + '" class="' + className + '" controls muted loop playsinline style="width: 100%; object-fit: cover;"></video>';
-      } else {
-        return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
-      }
-    } */
-
     function createMediaElement(src, alt, className) {
       if (isVideoFile(src)) {
         var videoSrc = src;
         if (src.indexOf('#t=') === -1) {
           videoSrc = src + '#t=0.1';
         }
-        return '<video src="' + videoSrc + '" class="' + className + '" ' +
+        var videoId = 'video_' + Math.random().toString(36).substr(2, 9);
+        
+        // Create video with explicit MIME type and additional Edge-specific attributes
+        var videoHTML = '<video id="' + videoId + '" class="' + className + '" ' +
                'controls ' +
                'controlsList="nodownload nofullscreen noremoteplayback" ' +
                'disablePictureInPicture ' +
@@ -1262,7 +1251,32 @@
                'preload="metadata" ' +
                'muted ' +
                'webkit-playsinline ' +
-               'style="width: 100%; object-fit: cover;"></video>';
+               'style="width: 100%; object-fit: cover;">';
+        
+        // Add source with explicit MIME type for better Edge compatibility
+        var extension = src.split('.').pop().toLowerCase().split('?')[0];
+        var mimeType = 'video/' + extension;
+        if (extension === 'mov') mimeType = 'video/quicktime';
+        if (extension === 'mkv') mimeType = 'video/x-matroska';
+        if (extension === 'm4v') mimeType = 'video/mp4';
+        
+        videoHTML += '<source src="' + videoSrc + '" type="' + mimeType + '">';
+        videoHTML += 'Your browser does not support the video tag.';
+        videoHTML += '</video>';
+        
+        // Force video load after DOM insertion for Edge
+        setTimeout(function() {
+          var videoElement = document.getElementById(videoId);
+          if (videoElement) {
+            videoElement.load();
+            // Force a repaint for Edge
+            videoElement.style.display = 'none';
+            videoElement.offsetHeight; // Trigger reflow
+            videoElement.style.display = 'block';
+          }
+        }, 100);
+        
+        return videoHTML;
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
