@@ -1254,7 +1254,15 @@
         if (src.indexOf('#t=') === -1) {
           videoSrc = src + '#t=0.1';
         }
-        return '<video src="' + videoSrc + '" class="' + className + '" controls playsinline preload="metadata" muted style="width: 100%; object-fit: cover;"></video>';
+        return '<video src="' + videoSrc + '" class="' + className + '" ' +
+               'controls ' +
+               'controlsList="nodownload nofullscreen noremoteplayback" ' +
+               'disablePictureInPicture ' +
+               'playsinline ' +
+               'preload="metadata" ' +
+               'muted ' +
+               'webkit-playsinline ' +
+               'style="width: 100%; object-fit: cover;"></video>';
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
