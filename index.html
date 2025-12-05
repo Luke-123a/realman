@@ -1235,21 +1235,51 @@
        video 업로드 시 H264로 변환 필수
        ======================================== */
 
-      function createMediaElement(src, alt, className) {
+    function createMediaElement(src, alt, className) {
       if (isVideoFile(src)) {
         var videoSrc = src;
         if (src.indexOf('#t=') === -1) {
           videoSrc = src + '#t=0.1';
         }
-        return '<video src="' + videoSrc + '" class="' + className + '" ' +
+        var videoId = 'video_' + Math.random().toString(36).substr(2, 9);
+        var videoHtml = '<video id="' + videoId + '" src="' + videoSrc + '" class="' + className + '" ' +
                'controls ' +
                'controlsList="nodownload nofullscreen noremoteplayback" ' +
                'disablePictureInPicture ' +
                'playsinline ' +
-               'preload="metadata" ' +
+               'preload="auto" ' +  // metadata    auto    중 하나 사용
                'muted ' +
                'webkit-playsinline ' +
+               'poster="' + src.split('?')[0].split('#')[0] + '#t=0.1" ' +
                'style="width: 100%; object-fit: cover;"></video>';
+        
+        // Initialize video after DOM update
+        setTimeout(function() {
+          var videoElement = document.getElementById(videoId);
+          if (videoElement) {
+            // Force reload if video fails to load
+            videoElement.addEventListener('error', function() {
+              console.log('[v0] Video error, attempting reload:', src);
+              this.load();
+            });
+            
+            // Ensure video is ready
+            videoElement.addEventListener('loadedmetadata', function() {
+              console.log('[v0] Video metadata loaded:', src);
+            });
+            
+            // Handle stalled video
+            videoElement.addEventListener('stalled', function() {
+              console.log('[v0] Video stalled, reloading:', src);
+              this.load();
+            });
+            
+            // Force initial load
+            videoElement.load();
+          }
+        }, 100);
+        
+        return videoHtml;
       } else {
         return '<img src="' + src + '" alt="' + alt + '" class="' + className + '">';
       }
