@@ -1426,14 +1426,19 @@
     function handleHashChange() {
       var hash = window.location.hash.substring(1);
       
-      if (hash.startsWith('trainer-')) {
-        var trainerName = hash.replace('trainer-', '');
-        if (trainerName) {
-          showSection('trainer-detail');
-          renderTrainerDetail(trainerName);
-          return;
-        }
-      }
+if (hash.startsWith('trainer-')) {
+  var trainerName = hash.replace('trainer-', '');
+
+  try {
+    trainerName = decodeURIComponent(trainerName);
+  } catch (e) {}
+
+  if (trainerName) {
+    showSection('trainer-detail');
+    renderTrainerDetail(trainerName);
+    return;
+  }
+}
       
       if (hash && document.getElementById(hash)) {
         showSection(hash);
